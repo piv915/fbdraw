@@ -1,16 +1,12 @@
+include Makefile.inc
 
-## Created by Anjuta
+DIRS	= sys
+OBJECTS = $(patsubst %.c, %.o, $(shell find . -name '*.c'))
+TARGET  = main
 
-CC = gcc
-CFLAGS = -g -Wall
-OBJECTS = main.o pixel.o draw.o modeset.o
-INCFLAGS = -I/usr/include/libdrm
-LDFLAGS = -Wl,-rpath,/usr/local/lib
-LIBS = -ldrm -lm
+all: $(TARGET) 
 
-all: main
-
-main: $(OBJECTS)
+$(TARGET): $(OBJECTS)
 	$(CC) -o main $(OBJECTS) $(LDFLAGS) $(LIBS)
 
 .SUFFIXES:
@@ -19,12 +15,9 @@ main: $(OBJECTS)
 .c.o :
 	$(CC) -o $@ -c $(CFLAGS) $< $(INCFLAGS)
 
-count:
-	wc *.c *.cc *.C *.cpp *.h *.hpp
-
 clean:
-	rm -f *.o
+	rm -f *.o *~ $(TARGET)
+	$(MAKE) -C $(DIRS) clean
 
 .PHONY: all
-.PHONY: count
 .PHONY: clean

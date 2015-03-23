@@ -30,8 +30,8 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#include "pixel.h"
-#include "draw.h"
+#include "include/sys/pixel.h"
+#include "include/draw.h"
 #include <math.h>
 
 void draw_circle(int x, int y, int radius, uint32_t color)
@@ -42,7 +42,7 @@ void draw_circle(int x, int y, int radius, uint32_t color)
 		xk = cos(angle) * radius;
 		yk = sin(angle) * radius;
 
-		pixelc(xk + x , yk + y, color);
+		pixel(xk + x , yk + y, color);
 	}
 }
 
@@ -58,10 +58,9 @@ void draw_circle_fill(int x, int y, int radius, uint32_t color)
 	}
 }
 
-
 void draw_line(int x1, int y1, int x2, int y2, uint32_t color)
 {
-	int w,h,i,j, is, js;
+	int w,h,i,j;//, is, js;
 	float k;
 	
 	w = x2 - x1;
@@ -75,10 +74,10 @@ void draw_line(int x1, int y1, int x2, int y2, uint32_t color)
 		j = ceil( i * k );
 
 		if ( h < w ) {
-			pixelc(x1 + i, y1 + j, color);
+			pixel(x1 + i, y1 + j, color);
 		}
 		else {
-			pixelc(x1 + j, y1 + i, color);
+			pixel(x1 + j, y1 + i, color);
 		}
 	}
 }
@@ -87,13 +86,13 @@ void draw_rectangle(int x1, int y1, int x2, int y2, uint32_t color)
 {
 	int x, y;
 	for(x = x1; x <= x2; x++) {
-		pixelc(x,y1,color);
-		pixelc(x,y2,color);
+		pixel(x,y1,color);
+		pixel(x,y2,color);
 	}
 	
 	for(y=y1; y<=y2; y++) {
-		pixelc(x2,y,color);
-		pixelc(x1,y,color);
+		pixel(x2,y,color);
+		pixel(x1,y,color);
 	}
 
 }

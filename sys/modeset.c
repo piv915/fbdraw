@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <xf86drm.h>
 #include <xf86drmMode.h>
-#include "modeset.h"
+#include "../include/sys/modeset.h"
 
 struct modeset_dev;
 static int modeset_find_crtc(int fd, drmModeRes *res, drmModeConnector *conn,
@@ -410,9 +410,11 @@ int modeset_init(void)
 		iter->saved_crtc = drmModeGetCrtc(fd, iter->crtc);
 		ret = drmModeSetCrtc(fd, iter->crtc, iter->fb, 0, 0,
 				     &iter->conn, 1, &iter->mode);
-		if (ret)
+		if (ret) {
 			fprintf(stderr, "cannot set CRTC for connector %u (%d): %m\n",
 				iter->conn, errno);
+			goto out_close;
+		}
 	}
 
 	return fd;

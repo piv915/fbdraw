@@ -29,25 +29,40 @@
  */
 
 #include <stdio.h>
-#include <time.h>
-#include "modeset.h"
-#include "pixel.h"
-#include "draw.h"
+#include <unistd.h>
+#include "include/sys/modeset.h"
+#include "include/sys/pixel.h"
+#include "include/sys/x11.h"
+#include "include/draw.h"
+
+int subsystem = NULL;
 
 int main()
 {
 	int fd;
+	
 	fd = modeset_init();
-	if(fd < 1) {
-		return fd;
+	if(fd < 0) {
+		printf("try init X window\n");
+		init_x();
+		subsystem = 2;
 	}
+	else {
+		subsystem = 1;
+	}
+
+	pixel = subsystem == 1 ? fbpixel : xpixel;
 	
 	draw();
 	
-	sleep(3);
-
-	/* cleanup everything */
-	modeset_cleanup(fd);	
+	if(fd > 0) {
+		sleep(10);
+		/* cleanup everything */
+		modeset_cleanup(fd);	
+	}
+	else {
+		cleanup_x();
+	}
 	
 	return 0;
 }

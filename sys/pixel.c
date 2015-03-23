@@ -1,10 +1,3 @@
-/***************************************************************************
- *            foobar.h
- *
- *  Пн. Март 23 04:59:36 2015
- *  Copyright  2015  piv
- *  <user@host>
- ****************************************************************************/
 /*
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -31,4 +24,56 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-void pixel(int unsigned x, int unsigned y, char r, char g, char b);
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
+#include "../include/sys/modeset.h"
+
+uint32_t color(uint8_t r, uint8_t g, uint8_t b)
+{
+	return (r << 16) | (g << 8) | b;
+}
+
+void fbpixel(int unsigned x, int unsigned y, uint32_t color)
+{
+	unsigned int off;
+	struct modeset_dev *iter;
+	
+	for (iter = modeset_list; iter; iter = iter->next) 
+	{
+		off = iter->stride * y + x * 4;
+		*(uint32_t*)&iter->map[off] = color;
+	}
+}
+
+void modeset_draw1(void)
+{
+	uint8_t r, g, b;
+	unsigned int i, j, k, off;
+	struct modeset_dev *iter;
+
+	srand(time(NULL));
+	r = 0xcc;
+	g = 0x33;
+	b = 0xee;
+
+	for (i = 0; i < 50; ++i) {
+
+		for (iter = modeset_list; iter; iter = iter->next) {
+			for (j = 0; j < iter->height; ++j) {
+				for (k = 0; k < iter->width; ++k) {
+					off = iter->stride * j + k * 4;
+					*(uint32_t*)&iter->map[off] =
+						     (r << 16) | (g << 8) | b;
+				}
+			}
+		}
+
+		usleep(100000);
+	}
+}
