@@ -30,5 +30,7 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-void pixel(int unsigned x, int unsigned y, char r, char g, char b);
+#include <stdint.h>
+
+void pixel(int unsigned x, int unsigned y, uint8_t r, uint8_t g, uint8_t b);
 void modeset_draw1(void);

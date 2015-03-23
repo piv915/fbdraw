@@ -34,11 +34,17 @@
 #include <time.h>
 #include "modeset.h"
 
-//struct modeset_dev *modeset_list = NULL;
-
-void pixel(int unsigned x, int unsigned y, char r, char g, char b)
+void pixel(int unsigned x, int unsigned y, uint8_t r, uint8_t g, uint8_t b)
 {
-
+	unsigned int off;
+	struct modeset_dev *iter;
+	
+	for (iter = modeset_list; iter; iter = iter->next) 
+	{
+		off = iter->stride * y + x * 4;
+		*(uint32_t*)&iter->map[off] =
+			     (r << 16) | (g << 8) | b;
+	}
 }
 
 void modeset_draw1(void)

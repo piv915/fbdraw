@@ -29,6 +29,7 @@
  */
 
 #include <stdio.h>
+#include <time.h>
 #include "modeset.h"
 #include "pixel.h"
 #include "draw.h"
@@ -49,8 +50,7 @@ int main()
 	
 	draw();
 	
-	/* draw some colors for 5seconds */
-/*	modeset_draw();*/
+	sleep(3);
 
 	/* cleanup everything */
 	modeset_cleanup(fd);	

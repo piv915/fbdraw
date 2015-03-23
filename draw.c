@@ -36,10 +36,10 @@ void draw_rectangle(int x1, int y1, int x2, int y2)
 {
 	int x, y;
 	for(x = x1; x <= x2; x++) {
-		pixel(x,y1,255,255,255);
+		pixel(x,y1,0,0,0);
 	}
 	
 	for(y=y1; y<=y2; y++) {
-		pixel(x2,y,0xff,0xff,0xff);
+		pixel(x2,y,0,0,0);
 	}
 }
