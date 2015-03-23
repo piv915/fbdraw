@@ -1,5 +1,5 @@
 /***************************************************************************
- *            foobar.h
+ *            pixel.h
  *
  *  Пн. Март 23 04:59:36 2015
  *  Copyright  2015  piv
@@ -32,5 +32,8 @@
  */
 #include <stdint.h>
 
+uint32_t color(uint8_t r, uint8_t g, uint8_t b);
 void pixel(int unsigned x, int unsigned y, uint8_t r, uint8_t g, uint8_t b);
+void pixelc(int unsigned x, int unsigned y, uint32_t color);
+
 void modeset_draw1(void);

@@ -34,12 +34,6 @@
 #include "pixel.h"
 #include "draw.h"
 
-void draw(void)
-{
-	modeset_draw1();
-	draw_rectangle(10,10,100,40);
-}
-
 int main()
 {
 	int fd;
@@ -55,6 +49,5 @@ int main()
 	/* cleanup everything */
 	modeset_cleanup(fd);	
 	
-/*	printf("Hello world\n");*/
 	return 0;
 }

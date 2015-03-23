@@ -34,6 +34,23 @@
 #include <time.h>
 #include "modeset.h"
 
+uint32_t color(uint8_t r, uint8_t g, uint8_t b)
+{
+	return (r << 16) | (g << 8) | b;
+}
+
+void pixelc(int unsigned x, int unsigned y, uint32_t color)
+{
+	unsigned int off;
+	struct modeset_dev *iter;
+	
+	for (iter = modeset_list; iter; iter = iter->next) 
+	{
+		off = iter->stride * y + x * 4;
+		*(uint32_t*)&iter->map[off] = color;
+	}
+}
+
 void pixel(int unsigned x, int unsigned y, uint8_t r, uint8_t g, uint8_t b)
 {
 	unsigned int off;

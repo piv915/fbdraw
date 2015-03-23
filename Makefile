@@ -3,15 +3,15 @@
 
 CC = gcc
 CFLAGS = -g -Wall
-OBJECTS = foobar.o pixel.o draw.o modeset.o
+OBJECTS = main.o pixel.o draw.o modeset.o
 INCFLAGS = -I/usr/include/libdrm
 LDFLAGS = -Wl,-rpath,/usr/local/lib
-LIBS = -ldrm
+LIBS = -ldrm -lm
 
-all: foobar
+all: main
 
-foobar: $(OBJECTS)
-	$(CC) -o foobar $(OBJECTS) $(LDFLAGS) $(LIBS)
+main: $(OBJECTS)
+	$(CC) -o main $(OBJECTS) $(LDFLAGS) $(LIBS)
 
 .SUFFIXES:
 .SUFFIXES:	.c .cc .C .cpp .o

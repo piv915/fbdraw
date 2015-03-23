@@ -30,4 +30,6 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-void draw_rectangle(int x1, int y1, int x2, int y2);
+void draw(void);
+void draw_rectangle(int x1, int y1, int x2, int y2, uint32_t color);
+void draw_line(int x1, int y1, int x2, int y2, uint32_t color);
